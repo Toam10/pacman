@@ -40,6 +40,7 @@ export default class Pacman
         this.#move();
         this.#animate();
         this.#eatDot();
+        this.#eatPowerDot();
 
         const size = this.tileSize / 2;
 
@@ -194,6 +195,14 @@ export default class Pacman
     #eatDot()
     {
         if(this.tileMap.eatDot(this.x, this.y) )
+        {
+            // this.wakaSound.play();
+        }
+    }
+
+    #eatPowerDot()
+    {
+        if(this.tileMap.eatPowerDot(this.x, this.y) )
         {
             // this.wakaSound.play();
         }
