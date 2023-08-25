@@ -14,8 +14,12 @@ const gameLoop = () => {
 
     tileMap.draw(context);
     pacman.draw(context)
-    enemies.forEach((enemy) => enemy.draw(context) );
+    enemies.forEach((enemy) => enemy.draw(context, gameOver() ) );
 
+}
+
+const gameOver = () => {
+    return !pacman.madeFirstMove;
 }
 
 tileMap.setCanvasSize(canvas);
