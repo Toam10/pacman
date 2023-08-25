@@ -10,6 +10,13 @@ export default class TileMap
 
             this.yellowDot = new Image();
             this.yellowDot.src = "../images/yellowDot.png";
+
+            this.pinkDot = new Image();
+            this.pinkDot.src = "../images/pinkDot.png";
+
+            this.powerDot = this.pinkDot
+            this.powerDotAnimationTimerDefault = 100;
+            this.powerDotAnimationTimer = this.powerDotAnimationTimerDefault;
             
             this.wall = new Image();
             this.wall.src = '../images/wall.png';
@@ -20,14 +27,15 @@ export default class TileMap
         // 4 - pacman
         // 5 - empty space
         // 6 - enemy
+        // 7 - power dot
 
         map = 
         [
             [1,1,1,1,1,1,1,1,1,1,1,1,1],
-            [1,0,0,0,4,0,0,0,0,0,0,0,1],
+            [1,7,0,0,4,0,0,0,0,0,0,7,1],
             [1,0,1,1,1,1,1,1,1,0,1,0,1],
             [1,0,1,6,0,0,0,0,0,0,1,0,1],
-            [1,0,1,0,1,1,1,0,1,0,1,0,1],
+            [1,0,1,7,1,1,1,0,1,0,1,0,1],
             [1,0,1,0,1,0,0,0,1,0,1,0,1],
             [1,0,1,0,1,0,1,0,1,0,1,0,1],
             [1,0,1,0,1,0,1,0,1,0,1,0,1],
@@ -52,6 +60,10 @@ export default class TileMap
                     {
                         this.#drawDot(context, column, row, this.tileSize);
                     }
+                    else if (tile === 7)
+                    {
+                        this.#drawPowerDot(context, column, row, this.tileSize);
+                    }
                     else
                     {
                         this.#drawBlank(context, column, row, this.tileSize);
@@ -75,6 +87,33 @@ export default class TileMap
             );
         };
 
+        #drawPowerDot(context, column, row, size)
+        {
+            this.powerDotAnimationTimer--;
+
+            if(this.powerDotAnimationTimer === 0)
+            {
+                this.powerDotAnimationTimer = this.powerDotAnimationTimerDefault;
+
+                if(this.powerDot == this.pinkDot)
+                {
+                    this.powerDot = this.yellowDot;
+                }
+                else
+                {
+                    this.powerDot = this.pinkDot;
+                }
+            }
+
+            context.drawImage(
+
+                this.powerDot,
+                column * this.tileSize,
+                row * this.tileSize, 
+                size,
+                size
+            );
+        }
 
         #drawWall(context, column, row, size) 
         {
