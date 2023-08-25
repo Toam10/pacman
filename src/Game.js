@@ -1,14 +1,18 @@
 import TileMap from "./TileMap.js";
 
 const tileSize = 32;
+const velocity = 1;
+
 const canvas = document.getElementById("gameCanvas");
 const context = canvas.getContext('2d');
 const tileMap = new TileMap(tileSize);
+const pacman = tileMap.getPacman( velocity );
 
 
 const gameLoop = () => {
 
     tileMap.draw(context);
+    pacman.draw(context)
 
 }
 
