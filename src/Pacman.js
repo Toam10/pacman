@@ -13,6 +13,10 @@ export default class Pacman
         this.currentMovingDirection = null;
         this.requestMovingDirection = null;
 
+        this.pacmanAnimationTimerDefault = 10;
+        this.pacmanAnimationTimer = null;
+        this
+
         document.addEventListener("keydown", this.#keydown);
 
         this.#loadPacmanImages();
@@ -22,6 +26,7 @@ export default class Pacman
     draw(context) 
     {
         this.#move();
+        this.#animate();
         context.drawImage(
                 this.pacmanImages[this.pacmanImageIndex],
                 this.x,
@@ -93,15 +98,25 @@ export default class Pacman
     {
         if(this.currentMovingDirection !== this.MovingDirection)
         {
-            if(
-                Number.isInteger( this.x / this.tileSize ) && 
-                Number.isInteger(this.y / this.tileSize)
-                )
+            if( Number.isInteger( this.x / this.tileSize ) &&  Number.isInteger(this.y / this.tileSize) )
                 {
+                    if( !this.tileMap.didCollideWithEnvironment(this.x, this.y, this.requestMovingDirection, ) )
+
                     this.currentMovingDirection = this.requestMovingDirection
                 }
         }
 
+        if(this.tileMap.didCollideWithEnvironment(this.x, this.y, this.currentMovingDirection)) 
+        {
+            this.pacmanAnimationTimer = null;
+            this.pacmanImageIndex = 1
+            return; 
+        }
+
+        else if (this.currentMovingDirection !== null && this.pacmanAnimationTimer == null)
+        {
+           this.pacmanAnimationTimer = this.pacmanAnimationTimerDefault; 
+        }
         switch(this.currentMovingDirection)
         {
             case MovingDirection.up:
@@ -118,5 +133,23 @@ export default class Pacman
             break; 
         }
        
+    }
+
+    #animate()
+    {
+        if(this.pacmanAnimationTimer == null) return;
+
+        this.pacmanAnimationTimer--;
+
+        if(this.pacmanAnimationTimer == 0)
+        {
+            this.pacmanAnimationTimer = this.pacmanAnimationTimerDefault;
+            this.pacmanImageIndex++;
+
+            if(this.pacmanImageIndex == this.pacmanImages.length)
+            {
+                this.pacmanImageIndex = 0;
+            }
+        }
     }
 } 
