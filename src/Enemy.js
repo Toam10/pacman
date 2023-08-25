@@ -15,8 +15,12 @@ export default class Enemy
 
         this.movingDirection = Math.floor(Math.random() * Object.keys(MovingDirection).length);
 
-        this.directionTimerDefault = this.#random(1, 3);
+        this.directionTimerDefault = this.#random(10, 25);
         this.directionTimer = this.directionTimerDefault;
+
+        this.scaredAboutToExpireTimerDefault = 10;
+        this.scaredAboutToExpireTimer = this.scaredAboutToExpireTimerDefault;
+
     }
 
     #random(min, max)
@@ -24,15 +28,55 @@ export default class Enemy
         return Math.floor(Math.random() * (max - min + 1 ) ) + min;
     }
 
-    draw(context, gameOver)
+    draw( context, pause, pacman )
     {
-        if(!gameOver)
+        if(!pause)
         {
             this.#move();
             this.#changeDirection();
         }
 
+        this.#setImage( context, pacman );
+    }
+
+    #setImage( context, pacman )
+    {
+        if( pacman.powerDotActive )
+        {
+            this.#setImageWhenPowerDotIsActive( pacman );
+        }
+        else
+        {
+            this.image = this.normalGhost;
+        }
+
         context.drawImage(this.image, this.x, this.y, this.tileSize, this.tileSize);
+    }
+
+    #setImageWhenPowerDotIsActive( pacman )
+    {
+        if(pacman.powerDotAboutToExpire)
+        {
+            this.scaredAboutToExpireTimer--;
+            
+            if(this.scaredAboutToExpireTimer === 0)
+            {
+                this.scaredAboutToExpireTimer = this.scaredAboutToExpireTimerDefault;
+
+                if(this.image === this.scaredGhost)
+                {
+                    this.image = this.scaredGhost2;
+                }
+                else
+                {
+                    this.image = this.scaredGhost;
+                }
+            }
+        }
+        else
+        {
+            this.image = this.scaredGhost;
+        }
     }
 
     #move()

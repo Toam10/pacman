@@ -212,21 +212,21 @@ export default class Pacman
             this.powerDotSound.play();
             this.powerDotActive = true;
             this.powerDotAboutToExpire = false;
-            this.timers.forEach((timer) => clearTimeout((timer)));
+            this.timers.forEach((timer) => clearTimeout(timer));
             this.timers = [];
 
             let powerDotTimer = setTimeout(() => {
 
                 this.powerDotActive = false;
                 this.powerDotAboutToExpire = false;
-            }, 1000+6 )
+            }, 1000 * 6 )
 
             this.timers.push(powerDotTimer);
 
             let powerDotAboutToExpireTimer = setTimeout(() => {
 
                 this.powerDotAboutToExpire = true;
-            }, 1000 + 3);
+            }, 1000 * 3);
 
             this.timers.push(powerDotAboutToExpireTimer)
         }

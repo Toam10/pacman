@@ -14,11 +14,11 @@ const gameLoop = () => {
 
     tileMap.draw(context);
     pacman.draw(context)
-    enemies.forEach((enemy) => enemy.draw(context, gameOver() ) );
+    enemies.forEach((enemy) => enemy.draw(context, pause(), pacman ) );
 
 }
 
-const gameOver = () => {
+const pause = () => {
     return !pacman.madeFirstMove;
 }
 
