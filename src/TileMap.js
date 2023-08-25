@@ -49,8 +49,8 @@ export default class TileMap
                         this.drawDot(context, column, row, this.tileSize);
                     }
 
-                    // context.strokeStyle = 'yellow';
-                    // context.strokeRect(column * this.tileSize, row * this.tileSize,this.tileSize, this.tileSize )
+                    context.strokeStyle = 'yellow';
+                    context.strokeRect(column * this.tileSize, row * this.tileSize,this.tileSize, this.tileSize )
                 }
             }
         }
