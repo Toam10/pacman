@@ -17,6 +17,8 @@ export default class Pacman
         this.pacmanAnimationTimer = null;
         this.pacmanRotation = this.Rotation.right;
 
+        this.wakaSound = new Audio('../sounds/waka.wav');
+
         document.addEventListener("keydown", this.#keydown);
 
         this.#loadPacmanImages();
@@ -181,7 +183,7 @@ export default class Pacman
     {
         if(this.tileMap.eatDot(this.x, this.y) )
         {
-
+            this.wakaSound.play();
         }
     }
 } 
