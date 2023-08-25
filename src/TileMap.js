@@ -1,4 +1,5 @@
 import Pacman from './Pacman.js';
+import MovingDirection from './MovingDirection.js';
 
 export default class TileMap 
 {
@@ -44,13 +45,13 @@ export default class TileMap
                     {
                         this.drawWall(context, column, row, this.tileSize); 
                     }
-                    else if (tile === 0)
+                    if (tile === 0)
                     {
                         this.drawDot(context, column, row, this.tileSize);
                     }
 
-                    context.strokeStyle = 'yellow';
-                    context.strokeRect(column * this.tileSize, row * this.tileSize,this.tileSize, this.tileSize )
+                    // context.strokeStyle = 'yellow';
+                    // context.strokeRect(column * this.tileSize, row * this.tileSize,this.tileSize, this.tileSize )
                 }
             }
         }
@@ -101,5 +102,52 @@ export default class TileMap
         {
             canvas.width = this.map[0].length * this.tileSize;
             canvas.height = this.map.length * this.tileSize;
+        }
+
+        didCollideWithEnvironment(x, y, direction)
+        {
+            if(direction == null) return;
+
+            if(Number.isInteger( x / this.tileSize) && Number.isInteger( y / this.tileSize) )
+            {
+                let column = 0;
+                let row = 0;
+                let newColumn = 0;
+                let nextRow = 0;
+
+                switch(direction)
+                {
+                    case MovingDirection.right:
+                            newColumn = x + this.tileSize;
+                            column    = newColumn / this.tileSize;
+                            row       = y / this.tileSize
+                        break;
+
+                    case MovingDirection.left:
+                            newColumn = x - this.tileSize;
+                            column    = newColumn / this.tileSize;
+                            row       = y / this.tileSize
+                        break;
+
+                    case MovingDirection.up:
+                            nextRow = y - this.tileSize;
+                            row     = nextRow / this.tileSize;
+                            column  = x / this.tileSize;
+                        break;
+
+                    case MovingDirection.down:
+                            nextRow = y + this.tileSize;
+                            row     = nextRow / this.tileSize;
+                            column  = x / this.tileSize;
+                        break;
+                }
+                const tile = this.map[row][column];
+
+                if(tile === 1)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 }
