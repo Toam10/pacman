@@ -24,10 +24,13 @@ export default class Enemy
         return Math.floor(Math.random() * (max - min + 1 ) ) + min;
     }
 
-    draw(context)
+    draw(context, gameOver)
     {
-        this.#move();
-        this.#changeDirection();
+        if(!gameOver)
+        {
+            this.#move();
+            this.#changeDirection();
+        }
 
         context.drawImage(this.image, this.x, this.y, this.tileSize, this.tileSize);
     }
