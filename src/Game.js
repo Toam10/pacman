@@ -7,12 +7,14 @@ const canvas = document.getElementById("gameCanvas");
 const context = canvas.getContext('2d');
 const tileMap = new TileMap(tileSize);
 const pacman = tileMap.getPacman( velocity );
+const enemies = tileMap.getEnemies( velocity )
 
 
 const gameLoop = () => {
 
     tileMap.draw(context);
     pacman.draw(context)
+    enemies.forEach((enemy) => enemy.draw(context) );
 
 }
 
