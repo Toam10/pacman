@@ -17,6 +17,7 @@ export default class TileMap
         // 1 - wall 
         // 0 - dots 
         // 4 - pacman
+        // 5 - empty space
 
         map = 
         [
@@ -43,11 +44,15 @@ export default class TileMap
 
                     if(tile === 1) 
                     {
-                        this.drawWall(context, column, row, this.tileSize); 
+                        this.#drawWall(context, column, row, this.tileSize); 
                     }
-                    if (tile === 0)
+                    else if (tile === 0)
                     {
-                        this.drawDot(context, column, row, this.tileSize);
+                        this.#drawDot(context, column, row, this.tileSize);
+                    }
+                    else
+                    {
+                        this.#drawBlank(context, column, row, this.tileSize);
                     }
 
                     // context.strokeStyle = 'yellow';
@@ -56,7 +61,7 @@ export default class TileMap
             }
         }
 
-        drawDot(context, column, row, size)
+        #drawDot(context, column, row, size)
         {
             context.drawImage(
 
@@ -69,7 +74,7 @@ export default class TileMap
         };
 
 
-        drawWall(context, column, row, size) 
+        #drawWall(context, column, row, size) 
         {
             context.drawImage(
 
@@ -79,6 +84,12 @@ export default class TileMap
                     size,
                     size
                 );
+        }
+
+        #drawBlank(context, column, row, size)
+        {
+            context.fillStyle = "black";
+            context.fillRect(column * this.tileSize, row * this.tileSize, size, size);
         }
 
         getPacman(velocity)
@@ -145,6 +156,22 @@ export default class TileMap
 
                 if(tile === 1)
                 {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        eatDot(x, y)
+        {
+            const row = y / this.tileSize;
+            const column = x / this.tileSize;
+
+            if(Number.isInteger(row) && Number.isInteger(column) )
+            {
+                if(this.map[row][column] === 0)
+                {
+                    this.map[row][column] = 5;
                     return true;
                 }
             }

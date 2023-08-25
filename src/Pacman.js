@@ -15,7 +15,7 @@ export default class Pacman
 
         this.pacmanAnimationTimerDefault = 10;
         this.pacmanAnimationTimer = null;
-        this
+        this.pacmanRotation = this.Rotation.right;
 
         document.addEventListener("keydown", this.#keydown);
 
@@ -23,17 +23,34 @@ export default class Pacman
 
     }
 
+    Rotation = 
+    {
+        right: 0,
+        down: 1,
+        left: 2,
+        up: 3
+    };
+
     draw(context) 
     {
         this.#move();
         this.#animate();
+        this.#eatDot();
+
+        const size = this.tileSize / 2;
+
+        context.save();
+        context.translate(this.x + size, this.y + size );
+        context.rotate( (this.pacmanRotation * 90 * Math.PI) / 180 );
         context.drawImage(
                 this.pacmanImages[this.pacmanImageIndex],
-                this.x,
-                this.y, 
+                -size,
+                -size,
                 this.tileSize, 
                 this.tileSize
-            )
+            );
+
+            context.restore();
     }
 
     #loadPacmanImages()
@@ -120,16 +137,23 @@ export default class Pacman
         switch(this.currentMovingDirection)
         {
             case MovingDirection.up:
-            this.y -= this.velocity;
+                this.y -= this.velocity;
+                this.pacmanRotation = this.Rotation.up
             break; 
+
             case MovingDirection.down:
-            this.y += this.velocity;
+                this.y += this.velocity;
+                this.pacmanRotation = this.Rotation.down
             break; 
+
             case MovingDirection.left:
-            this.x -= this.velocity;
+                this.x -= this.velocity;
+                this.pacmanRotation = this.Rotation.left
             break; 
+
             case MovingDirection.right:
-            this.x += this.velocity;
+                this.x += this.velocity;
+                this.pacmanRotation = this.Rotation.right
             break; 
         }
        
@@ -150,6 +174,14 @@ export default class Pacman
             {
                 this.pacmanImageIndex = 0;
             }
+        }
+    }
+
+    #eatDot()
+    {
+        if(this.tileMap.eatDot(this.x, this.y) )
+        {
+
         }
     }
 } 
