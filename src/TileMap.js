@@ -20,9 +20,14 @@ export default class TileMap
             
             this.wall = new Image();
             this.wall.src = '../images/wall.png';
+
+            this.wallBlock = new Image();
+            this.wallBlock.src = '../images/wallBlock.png';
+            this.wallBlock.style.display = false
         }
 
         // 1 - wall 
+        // 2 - wallBlock
         // 0 - dots 
         // 4 - pacman
         // 5 - empty space
@@ -31,17 +36,25 @@ export default class TileMap
 
         map = 
         [
-            [1,1,1,1,1,1,1,1,1,1,1,1,1],
-            [1,7,0,0,4,0,0,0,0,0,0,7,1],
-            [1,0,1,1,1,1,1,1,1,0,1,0,1],
-            [1,0,1,6,0,0,0,0,0,0,1,0,1],
-            [1,0,1,7,1,1,1,0,1,0,1,0,1],
-            [1,0,1,0,1,0,0,0,1,0,1,0,1],
-            [1,0,1,0,1,0,1,0,1,0,1,0,1],
-            [1,0,1,0,1,0,1,0,1,0,1,0,1],
-            [1,0,1,0,1,0,1,0,0,0,1,0,1],
-            [1,6,0,0,0,0,0,0,0,0,0,6,1],
-            [1,1,1,1,1,1,1,1,1,1,1,1,1],
+            [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+            [1,7,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,1],
+            [1,0,1,1,1,1,1,1,1,0,1,0,0,1,0,1,1,1,0,1,0,0,1,1,1,1,1,1,1,1,1,1,1],
+            [1,0,1,6,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,0,0,1,7,0,0,0,0,1,0,1,7,1],
+            [1,0,1,7,1,1,1,0,1,0,1,0,0,1,0,0,1,0,0,1,0,0,1,1,1,0,0,0,1,0,1,0,1],
+            [1,0,1,0,1,0,0,0,1,0,1,0,0,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,1],
+            [1,0,1,0,1,0,1,0,1,0,1,0,0,1,0,0,1,0,0,1,0,0,0,1,0,0,1,1,1,1,1,0,1],
+            [1,0,1,0,1,0,1,0,1,0,1,0,0,1,0,0,1,0,0,1,0,0,0,1,0,0,6,0,0,0,1,0,1],
+            [1,0,1,0,1,0,1,0,0,0,1,0,0,0,0,1,1,1,1,1,0,0,0,1,0,0,0,0,0,0,1,0,1],
+            [1,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,1,0,,0,0,0,0,0,0,0,0,1],
+            [1,0,0,0,0,0,0,0,0,0,0,1,1,2,2,1,1,0,0,0,0,1,0,1,1,1,1,1,1,1,1,1,1],
+            [1,0,1,1,1,1,1,1,1,1,0,1,5,5,5,5,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1],
+            [1,0,0,0,0,1,0,0,0,0,0,1,5,6,6,6,1,0,1,1,0,1,0,1,0,1,0,1,1,1,1,0,1],
+            [1,0,0,0,0,1,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,1,0,1,0,0,0,7,0,0,1],
+            [1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,1,1,1,1,1],
+            [1,0,1,0,0,1,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1],
+            [1,0,1,0,0,1,1,1,1,0,0,0,6,0,0,0,0,1,1,1,1,0,0,1,0,0,1,1,1,1,0,0,1],
+            [1,7,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+            [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
         ];
 
         draw(context)
@@ -55,6 +68,10 @@ export default class TileMap
                     if(tile === 1) 
                     {
                         this.#drawWall(context, column, row, this.tileSize); 
+                    }
+                    else if(tile === 2) 
+                    {
+                        this.#drawWallBlock(context, column, row, this.tileSize); 
                     }
                     else if (tile === 0)
                     {
@@ -75,7 +92,7 @@ export default class TileMap
             }
         }
 
-        #drawDot(context, column, row, size)
+        #drawDot( context, column, row, size )
         {
             context.drawImage(
 
@@ -87,7 +104,7 @@ export default class TileMap
             );
         };
 
-        #drawPowerDot(context, column, row, size)
+        #drawPowerDot( context, column, row, size )
         {
             this.powerDotAnimationTimer--;
 
@@ -115,7 +132,7 @@ export default class TileMap
             );
         }
 
-        #drawWall(context, column, row, size) 
+        #drawWall( context, column, row, size ) 
         {
             context.drawImage(
 
@@ -125,6 +142,31 @@ export default class TileMap
                     size,
                     size
                 );
+        }
+
+        // Need to handle the wallBlock in the cage that will be open every 5 seconds
+
+        #drawWallBlock( context, column, row, size )
+        {
+            const customWidth = size * 1;  // Set your desired width
+            const customHeight = size * 0.7; // Set your desired height
+
+            context.fillStyle = 'black';
+
+            context.fillRect(
+                column * this.tileSize + (size - customWidth) / 1,
+                row * this.tileSize + (size - customHeight) / 1,
+                customWidth,
+                customHeight
+            );
+
+            context.drawImage(
+                this.wallBlock,
+                column * this.tileSize + (size - customWidth) / 0, // Center the image horizontally
+                row * this.tileSize + (size + customHeight) / 0,   // Center the image vertically
+                // customWidth,
+                // customHeight
+            );
         }
 
         #drawBlank(context, column, row, size)
