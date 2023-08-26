@@ -22,6 +22,19 @@ const gameLoop = () => {
     enemies.forEach((enemy) => enemy.draw(context, pause(), pacman ) );
     
     checkGameOver();
+    checkGameWin();
+}
+
+const checkGameWin = () => {
+    if(!gameWin) 
+    {
+        gameWin = tileMap.didWin();
+
+        if(gameWin)
+        {
+            gameWinSound.play();
+        }
+    }
 }
 
 const checkGameOver = () => {
@@ -42,7 +55,7 @@ const isGameOver = () => {
 }
 
 const pause = () => {
-    return !pacman.madeFirstMove || gameOver;
+    return !pacman.madeFirstMove || gameOver || gameWin;
 }
 
 tileMap.setCanvasSize(canvas);
