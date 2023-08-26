@@ -66,7 +66,7 @@ export default class Enemy
         }
         else
         {
-            this.image = this.normalGhost;
+            this.image = this.orangeGhosts;
         }
 
         context.drawImage(this.image, this.x, this.y, this.tileSize, this.tileSize);
@@ -82,22 +82,23 @@ export default class Enemy
             {
                 this.scaredAboutToExpireTimer = this.scaredAboutToExpireTimerDefault;
 
-                if(this.image === this.scaredGhost)
+                if(this.image === this.blueGhost)
                 {
-                    this.image = this.scaredGhost2;
+                    this.image = this.whiteGhost;
                 }
                 else
                 {
-                    this.image = this.scaredGhost;
+                    this.image = this.blueGhost;
                 }
             }
         }
         else
         {
-            this.image = this.scaredGhost;
+            this.image = this.blueGhost;
         }
     }
 
+    
     #move()
     {
         if( !this.tileMap.didCollideWithEnvironment( this.x, this.y, this.movingDirection ) )
@@ -147,19 +148,19 @@ export default class Enemy
         }
     }   
 
+
     #loadImages()
     {
-        this.normalGhost = new Image();
-        this.normalGhost.src = '../images/ghost.png';
+        this.orangeGhosts = new Image();
+        this.orangeGhosts.src = '../images/orangeGhost.png';
 
+        this.blueGhost = new Image();
+        this.blueGhost.src = '../images/blueGhost.png';
 
-        this.scaredGhost = new Image();
-        this.scaredGhost.src = '../images/scaredGhost.png';
+        this.whiteGhost = new Image();
+        this.whiteGhost.src = '../images/whiteGhost.png';
 
-        this.scaredGhost2 = new Image();
-        this.scaredGhost2.src = '../images/scaredGhost2.png';
-
-        this.image = this.normalGhost;
+        this.image = this.orangeGhosts;
 
     }
 }

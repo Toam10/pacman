@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign</title>
+</head>
+
+<style>
+
+body
+{
+    background-image: url('https://www.pixelstalk.net/wp-content/uploads/2016/05/HD-Pacman-Wallpaper.jpg');
+    background-size: 100%;
+    overflow: hidden;
+}
+
+#sign_container
+{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.notebook__button_9 {
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: white;
+  cursor: pointer;
+  border: 3px solid;
+  padding: 0.25em 0.5em;
+  box-shadow: 3px 4px 15px 4px rgb(60, 63, 68);;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  background-color: rgb(60, 63, 68);;
+}
+
+.notebook__input_6 {
+	padding: 6px 12px;
+	background: rgb(31, 32, 35);
+	border: 1px solid rgb(60, 63, 68);
+	border-radius: 4px;
+	font-size: 13px;
+	color: rgb(247, 248, 248);
+    width: 200px;
+	height: 26px;
+	appearance: none;
+	transition: border 0.15s ease 0s;
+}
+
+.notebook__input_6 :focus {
+	outline: none;
+	box-shadow: none;
+	border-color: rgb(100, 153, 255);
+}
+
+</style>
+
+<body>
+
+    <div id="sign_container">
+
+        <input type="text" id="username" placeholder="Enter username" class="notebook__input_6">
+        <input type="text" id="password" placeholder="Enter password" class="notebook__input_6">
+
+        <button onclick="handleSign()" class="notebook__button_9"> Start Game </button>
+
+    </div>
+
+    <script src="../src/Sign.js"></script>
+
+</body>
+</html>

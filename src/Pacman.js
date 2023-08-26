@@ -31,7 +31,6 @@ export default class Pacman
         document.addEventListener("keydown", this.#keydown);
 
         this.#loadPacmanImages();
-
     }
 
     Rotation = 
