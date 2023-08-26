@@ -40,12 +40,15 @@ export default class Pacman
         up: 3
     };
 
-    draw(context) 
+    draw(context, pause) 
     {
-        this.#move();
-        this.#animate();
-        this.#eatDot();
-        this.#eatPowerDot();
+        if(!pause) 
+        {
+            this.#move();
+            this.#animate();
+            this.#eatDot();
+            this.#eatPowerDot();
+        }
 
         const size = this.tileSize / 2;
 
