@@ -10,16 +10,40 @@ const pacman = tileMap.getPacman( velocity );
 const enemies = tileMap.getEnemies( velocity )
 
 
+let gameOver = false;
+let gameWin = false;
+
+const gameOverSound = new Audio('../sounds/gameOver.wav');
+const gameWinSound = new Audio('../sounds/gameWin.wav');
+
 const gameLoop = () => {
 
-    tileMap.draw(context);
-    pacman.draw(context)
+    tileMap.draw( context );
+    pacman.draw( context, pause() );
     enemies.forEach((enemy) => enemy.draw(context, pause(), pacman ) );
+    
+    checkGameOver();
+}
 
+const checkGameOver = () => {
+    if(!gameOver)
+    {
+        gameOver = isGameOver();
+
+        if(gameOver)
+        {
+            gameOverSound.play();
+        }
+    }
+}
+
+const isGameOver = () => {
+
+    return enemies.some(enemy => !pacman.powerDotActive && enemy.collideWith( pacman ));
 }
 
 const pause = () => {
-    return !pacman.madeFirstMove;
+    return !pacman.madeFirstMove || gameOver;
 }
 
 tileMap.setCanvasSize(canvas);

@@ -39,6 +39,25 @@ export default class Enemy
         this.#setImage( context, pacman );
     }
 
+    collideWith( pacman )
+    {
+        const size = this.tileSize / 2;
+
+        if( 
+            this.x < pacman.x + size 
+            && (this.x +size > pacman.x ) 
+            && (this.y < pacman.y + size) 
+            && (this.y +size > pacman.y) 
+            )
+          {
+            return true;
+          }
+          else
+          {
+            return false;
+          }
+    }
+
     #setImage( context, pacman )
     {
         if( pacman.powerDotActive )
