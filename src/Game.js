@@ -18,6 +18,9 @@ const gameWinSound = new Audio('../sounds/gameWin.wav');
 const gameLoop = () => {
 
     tileMap.draw( context );
+
+    drawGameEnd();
+
     pacman.draw( context, pause(), enemies);
     enemies.forEach((enemy) => enemy.draw(context, pause(), pacman ) );
     
@@ -58,5 +61,32 @@ const pause = () => {
     return !pacman.madeFirstMove || gameOver || gameWin;
 }
 
-tileMap.setCanvasSize(canvas);
+const drawGameEnd = () => {
+
+    if(gameOver || gameWin)
+    {
+        let text = '   You Win   ';
+
+        if(gameOver)
+        {
+            text = ' Game Over ';
+        }
+
+        context.fillStyle = 'black';
+        context.fillRect(0, canvas.height / 3.2, canvas.width, 80);
+
+        context.font = '80px comic sans';
+
+        const gradient = context.createLinearGradient(0, 0, canvas.width, 0);
+
+        gradient.addColorStop('0', 'magenta');
+        gradient.addColorStop('0.5', 'blue');
+        gradient.addColorStop('1.0', 'red');
+
+        context.fillStyle = gradient;
+        context.fillText(text, 10, canvas.height / 2 );
+    }
+}
+
+tileMap.setCanvasSize( canvas );
 setInterval(gameLoop, 1000 / 75);
