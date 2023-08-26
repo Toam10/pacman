@@ -9,7 +9,6 @@ const tileMap = new TileMap(tileSize);
 const pacman = tileMap.getPacman( velocity );
 const enemies = tileMap.getEnemies( velocity )
 
-
 let gameOver = false;
 let gameWin = false;
 
@@ -19,7 +18,7 @@ const gameWinSound = new Audio('../sounds/gameWin.wav');
 const gameLoop = () => {
 
     tileMap.draw( context );
-    pacman.draw( context, pause() );
+    pacman.draw( context, pause(), enemies);
     enemies.forEach((enemy) => enemy.draw(context, pause(), pacman ) );
     
     checkGameOver();
