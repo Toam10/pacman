@@ -19,7 +19,7 @@ export default class TileMap
             this.powerDotAnimationTimer = this.powerDotAnimationTimerDefault;
             
             this.wall = new Image();
-            this.wall.src = '../images/wall.png';
+            this.wall.src = '../images/wall2.png';
 
             this.wallBlock = new Image();
             this.wallBlock.src = '../images/wallBlock.png';
@@ -48,7 +48,7 @@ export default class TileMap
             [1,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,1,0,,0,0,0,0,0,0,0,0,1],
             [1,0,0,0,0,0,0,0,0,0,0,1,1,2,2,1,1,0,0,0,0,1,0,1,1,1,1,1,1,1,1,1,1],
             [1,0,1,1,1,1,1,1,1,1,0,1,5,5,5,5,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,1,0,0,0,0,0,1,5,6,6,6,1,0,1,1,0,1,0,1,0,1,0,1,1,1,1,0,1],
+            [1,0,0,0,0,1,0,0,0,0,0,1,5,6,6,5,1,0,1,1,0,1,0,1,0,1,0,1,1,1,1,0,1],
             [1,0,0,0,0,1,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,1,0,1,0,0,0,7,0,0,1],
             [1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,1,1,1,1,1],
             [1,0,1,0,0,1,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1],
@@ -144,28 +144,25 @@ export default class TileMap
                 );
         }
 
-        // Need to handle the wallBlock in the cage that will be open every 5 seconds
-
         #drawWallBlock( context, column, row, size )
         {
-            const customWidth = size * 1;  // Set your desired width
-            const customHeight = size * 0.7; // Set your desired height
-
-            context.fillStyle = 'black';
+            const customWidth = size * 1 * 1;  // Set your desired width
+            const customHeight = size * 0.7 * 2; // Set your desired height
 
             context.fillRect(
-                column * this.tileSize + (size - customWidth) / 1,
-                row * this.tileSize + (size - customHeight) / 1,
-                customWidth,
-                customHeight
+                column * this.tileSize, 
+                row * this.tileSize,
+                size,
+                size
             );
 
             context.drawImage(
+
                 this.wallBlock,
-                column * this.tileSize + (size - customWidth) / 0, // Center the image horizontally
-                row * this.tileSize + (size + customHeight) / 0,   // Center the image vertically
-                // customWidth,
-                // customHeight
+                column * this.tileSize + (size - customWidth) / 25,
+                row * this.tileSize + (size - customHeight) / 25,
+                size,
+                size
             );
         }
 

@@ -69,11 +69,11 @@ const drawGameEnd = () => {
 
         if(gameOver)
         {
-            text = ' Game Over ';
+            text = '                 Game Over                 ';
         }
 
         context.fillStyle = 'black';
-        context.fillRect(0, canvas.height / 3.2, canvas.width, 80);
+        context.fillRect(0, canvas.height / 4.2, canvas.width, 80);
 
         context.font = '80px comic sans';
 
@@ -84,7 +84,7 @@ const drawGameEnd = () => {
         gradient.addColorStop('1.0', 'red');
 
         context.fillStyle = gradient;
-        context.fillText(text, 10, canvas.height / 2 );
+        context.fillText(text, 10, canvas.height / 3 );
     }
 }
 
