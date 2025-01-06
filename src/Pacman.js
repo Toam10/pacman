@@ -54,10 +54,10 @@ export default class Pacman
 
         const size = this.tileSize / 2;
 
-        context.save();
-        context.translate(this.x + size, this.y + size );
-        context.rotate( (this.pacmanRotation * 90 * Math.PI) / 180 );
-        context.drawImage(
+                context.save();
+                context.translate(this.x + size, this.y + size );
+                context.rotate( (this.pacmanRotation * 90 * Math.PI) / 180 );
+                context.drawImage(
                 this.pacmanImages[this.pacmanImageIndex],
                 -size,
                 -size,

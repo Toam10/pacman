@@ -57,7 +57,7 @@ const isGameOver = () => {
     return enemies.some(enemy => !pacman.powerDotActive && enemy.collideWith( pacman ));
 }
 
-const pause = () => {
+const pause = () => {  
     return !pacman.madeFirstMove || gameOver || gameWin;
 }
 
@@ -65,7 +65,7 @@ const drawGameEnd = () => {
 
     if(gameOver || gameWin)
     {
-        let text = '   You Win   ';
+        let text = '                  You Win           ';
 
         if(gameOver)
         {

@@ -98,7 +98,6 @@ export default class Enemy
         }
     }
 
-    
     #move()
     {
         if( !this.tileMap.didCollideWithEnvironment( this.x, this.y, this.movingDirection ) )
